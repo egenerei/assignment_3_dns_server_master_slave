@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
     master.vm.provision "shell", name: "dns_config_master", inline: <<-shell
       cp /vagrant/master/named /etc/default/
       cp /vagrant/master/named.conf.options /etc/bind/ 
+      cp /vagrant/master/named.conf.local /etc/bind/
       systemctl restart named
       shell
   end
