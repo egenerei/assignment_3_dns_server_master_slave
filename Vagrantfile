@@ -19,7 +19,8 @@ Vagrant.configure("2") do |config|
      ip: "192.168.57.103"
     master.vm.hostname= "tierra.sistema.test"
     master.vm.provision "shell", name: "dns_config_master", inline: <<-shell
-      cp /vagrant/master/backup/named /etc/default/
+      cp /vagrant/master/named /etc/default/
+      cp /vagrant/master/named.conf.options /etc/bind/ 
       systemctl restart named
       shell
   end
