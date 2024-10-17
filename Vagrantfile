@@ -17,10 +17,6 @@ Vagrant.configure("2") do |config|
   config.vm.define "master" do |master|
     master.vm.network  "private_network",
      ip: "192.168.57.103"
-    master.vm.provision "shell", inline: <<-script
-      echo "tierra.sistema.test" > /etc/hostname 
-    
-    script
     master.vm.hostname= "tierra.sistema.test"
     master.vm.provision "shell", name: "dns_config_master", inline: <<-shell
       cp /vagrant/master/backup/named /etc/default/
@@ -32,10 +28,6 @@ Vagrant.configure("2") do |config|
   # config.vm.define "slave" do |slave|
   #   slave.vm.network  "private_network",
   #    ip: "192.168.57.102"
-  #   #ojo al poner las rutas de la compartida, siempre /vagrant delante o no funciona
-  #   slave.vm.provision "shell", inline: <<-script
-  #       echo "tierra.sistema.test" > /etc/hostname 
-  #     script
   #   slave.vm.hostname= "tierra.sistema.test"
   #   slave.vm.provision "shell", name: "dns_config_slave", inline: <<-shell
   #     cp /vagrant/slave/named /etc/default/
