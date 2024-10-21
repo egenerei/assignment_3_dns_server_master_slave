@@ -17,11 +17,15 @@ Vagrant.configure("2") do |config|
   config.vm.define "master" do |master|
     master.vm.network  "private_network",
      ip: "192.168.57.103"
-    master.vm.hostname= "tierra.sistema.test"
+    master.vm.hostname = "tierra.sistema.test"
     master.vm.provision "shell", name: "dns_config_master", inline: <<-shell
-      cp /vagrant/master/named /etc/default/
-      cp /vagrant/master/named.conf.options /etc/bind/ 
-      cp /vagrant/master/named.conf.local /etc/bind/
+      cp -v /vagrant/master/named /etc/default/
+      cp -v /vagrant/master/named.conf.options /etc/bind/ 
+      cp -v /vagrant/master/named.conf.local /etc/bind/
+      cp -v /vagrant/master/db.192.168.57.dns /var/lib/bind/
+      chown :bind /var/lib/bind/db.192.168.57.dns
+      cp -v /vagrant/master/db.sistema.test.dns /var/lib/bind/
+      chown :bind /var/lib/bind/db.sistema.test.dns
       systemctl restart named
       shell
   end
