@@ -31,13 +31,19 @@ Vagrant.configure("2") do |config|
   end
 
   # Slave DNS server
-  # config.vm.define "slave" do |slave|
-  #   slave.vm.network  "private_network",
-  #    ip: "192.168.57.102"
-  #   slave.vm.hostname= "tierra.sistema.test"
-  #   slave.vm.provision "shell", name: "dns_config_slave", inline: <<-shell
-  #     cp /vagrant/slave/named /etc/default/
-  #     systemctl restart named
-  #     shell
-  # end
+  config.vm.define "slave" do |slave|
+    slave.vm.network  "private_network",
+     ip: "192.168.57.102"
+    slave.vm.hostname= "venus.sistema.test"
+    slave.vm.provision "shell", name: "dns_config_master", inline: <<-shell
+      cp -v /vagrant/slave/named /etc/default/
+      cp -v /vagrant/slave/named.conf.local /etc/bind/
+      cp -v /vagrant/slave/named.conf.options /etc/bind/ 
+      cp -v /vagrant/master/db.192.168.57.dns /var/lib/bind/
+      chown :bind /var/lib/bind/db.192.168.57.dns
+      cp -v /vagrant/master/db.sistema.test.dns /var/lib/bind/
+      chown :bind /var/lib/bind/db.sistema.test.dns
+      systemctl restart named
+      shell
+  end
 end
