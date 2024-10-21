@@ -23,9 +23,8 @@ Vagrant.configure("2") do |config|
       cp -v /vagrant/master/named.conf.options /etc/bind/ 
       cp -v /vagrant/master/named.conf.local /etc/bind/
       cp -v /vagrant/master/db.192.168.57.dns /var/lib/bind/
-      chown :bind /var/lib/bind/db.192.168.57.dns
       cp -v /vagrant/master/db.sistema.test.dns /var/lib/bind/
-      chown :bind /var/lib/bind/db.sistema.test.dns
+      chown :bind /var/lib/bind/*.dns
       systemctl restart named
       shell
   end
