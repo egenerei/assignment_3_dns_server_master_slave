@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
       apt-get install bind9 dnsutils -y
       script
   #First DNS server
-  config.vm.define "master" do |master|
+  config.vm.define "tierra" do |master|
     master.vm.network  "private_network",
      ip: "192.168.57.103"
     master.vm.hostname = "tierra.sistema.test"
@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
   end
 
   # Slave DNS server
-  config.vm.define "slave" do |slave|
+  config.vm.define "venus" do |slave|
     slave.vm.network  "private_network",
      ip: "192.168.57.102"
     slave.vm.hostname= "venus.sistema.test"
